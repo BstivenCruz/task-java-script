@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+}
+.titulo {
+    height: 25vh;
+}
+.titulo h1 {
+    font-size: 70px;
+}
+ footer div img {
+    width: 50px;
+    margin-left: 30px;
+ }
+header {
+    width: 100%;
+
+    min-height: 20vh;
+}
+main{
+    width: 100%;
+    min-height: 70vh;
+}
+footer {
+    width: 100%;
+
+    min-height: 10vh;
+}
