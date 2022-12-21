@@ -1,17 +1,62 @@
+import {imprimirCards,imprimirCategorias,filtroGeneral  } from "./module/funciones.js";
+
 
 let card = document.getElementById("cards")
 let events = data.events
 card.innerHTML = ""
 
-for (let propiedades of events) {
-    if ( propiedades.date < "2022-01-01")
-        card.innerHTML += `<div class="card ms-5 bg-secondary bg-opacity-50" style="width: 18rem;">
-            <img src= "${propiedades.image}" class="card-img-top mt-3" alt="...">
-            <div class="card-body">
-            <h5 class="card-title">${propiedades.name}</h5>
-            <p class="card-text">${propiedades.description}</p>
-            <a href="${propiedades._id}" class="btn btn-primary">more info</a>
-            </div>
-        </div>
-        `
-}
+let pastEvents = events.filter(propiedades => propiedades.date < "2022-01-01")
+
+
+
+    
+
+
+let category = document.getElementById("checkbox")
+
+const categories = events.reduce((acumula,item) => {
+  if ( !acumula.includes(item.category)){
+    acumula.push(item.category)
+  }
+  return acumula
+},[]
+)
+
+
+
+
+category.addEventListener("change", (e) => {
+
+  let filtraCategoria = filtroGeneral(pastEvents,inputSearch)
+   
+  imprimirCards(filtraCategoria,card);
+  
+     
+  });
+
+  
+  
+  
+  
+  
+  let inputSearch = document.getElementById("input_search")
+  
+  inputSearch.addEventListener( "input" , (e) => {
+    let filtraBusqueda = filtroGeneral(pastEvents,inputSearch)
+    imprimirCards(filtraBusqueda, card);
+  } )
+  
+  
+  let listevens;
+  fetch("https://amazing-events.onrender.com/api/events")
+    .then((promesa) => promesa.json())
+    .then((eventsf) => {
+      listevens = eventsf;
+      imprimirCards(pastEvents, card);
+      imprimirCategorias(categories, category)
+    });
+  
+  
+
+  
+  
